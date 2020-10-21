@@ -1,0 +1,35 @@
+---
+- name: Install openntpd server
+  apt:
+    state: present
+    pkg: "{{ openntpd_package_name }}"
+    update_cache: true
+
+- name: Set timezone variables
+  copy:
+    content: "{{ timezone }}"
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
+  changed_when: false
+  notify:
+    - update timezone
+
+- name: Add ntpd.conf
+  lineinfile:
+    dest: /etc/openntpd/ntpd.conf
+    backrefs: true
+    regexp: "^{{ item }}"
+    line: "{{ item }}"
+    state: present
+  notify: restart ntpd
+  with_items:
+    - "{{ ntp_servers | list }}"
+
+- name: Start ntpd
+  service:
+    name: "{{ openntpd_service_name }}"
+    state: started
+    enabled: yes

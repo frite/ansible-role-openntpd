@@ -1,0 +1,10 @@
+---
+openntpd_package_name: openntpd
+openntpd_service_name: openntpd
+ntp_servers:
+  - "servers 0.debian.pool.ntp.org"
+  - "servers 1.debian.pool.ntp.org"
+  - "servers 2.debian.pool.ntp.org"
+  - "servers 3.debian.pool.ntp.org"
+
+timezone: "Etc/UTC"
