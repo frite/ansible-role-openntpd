@@ -17,6 +17,15 @@
   notify:
     - update timezone
 
+- name: Create openntpd
+  template:
+    src: etc/default/openntpd.j2
+    dest: /etc/default/openntpd
+    owner: root
+    group: root
+    mode: '0755'
+  notify: restart ntpd
+
 - name: Add ntpd.conf
   lineinfile:
     dest: /etc/openntpd/ntpd.conf

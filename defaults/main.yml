@@ -1,6 +1,7 @@
 ---
 openntpd_package_name: openntpd
 openntpd_service_name: openntpd
+openntpd_extra_opts: "-s"
 ntp_servers:
   - "servers 0.debian.pool.ntp.org"
   - "servers 1.debian.pool.ntp.org"

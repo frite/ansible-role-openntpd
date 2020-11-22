@@ -13,14 +13,25 @@
 
   - name: Get contents of openntpd conf file
     stat:
-      path: /etc/openntpd/ntpd.conf
+      path: /etc/default/openntpd
       checksum_algorithm: md5
       get_checksum: true
     register: openntpd_conf
 
   - name: Assert contents of openntpd conf are proper
     assert:
-      that: openntpd_conf.stat.checksum == 'd79975ee6ca862279de0f4d8d68833f6'
+      that: openntpd_conf.stat.checksum == 'c25a97aae8be9400df68d331c5f7abeb'
+
+  - name: Get contents of ntpd conf file
+    stat:
+      path: /etc/openntpd/ntpd.conf
+      checksum_algorithm: md5
+      get_checksum: true
+    register: ntpd_conf
+
+  - name: Assert contents of openntpd conf are proper
+    assert:
+      that: ntpd_conf.stat.checksum == 'd79975ee6ca862279de0f4d8d68833f6'
 
   - name: Get contents of /etc/timezone file
     shell: cat /etc/timezone
